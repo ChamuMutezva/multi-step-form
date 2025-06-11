@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -131,4 +130,3 @@ VStep 1 Your info Step
         </div>
     );
 }
-
