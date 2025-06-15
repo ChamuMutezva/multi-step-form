@@ -54,30 +54,34 @@ export function PersonalInformation({
         });
         handleNextStep();
     }
-    /*
-VStep 1 Your info Step
- 2 Select plan Step 3 Add-ons Step 4 Summary 
-
-  Name e.g. Stephen King Email Address e.g. stephenking@lorem.com Phone Number e.g. +1 234 567 890 Next Step Select your plan You have the option of monthly or yearly billing. Arcade $9/mo Advanced $12/mo Pro $15/mo Monthly Yearly Go Back Next Step Pick add-ons Add-ons help enhance your gaming experience. Online service Access to multiplayer games +$1/mo Larger storage Extra 1TB of cloud save +$2/mo Customizable Profile Custom theme on your profile +$2/mo Go Back Next Step Finishing up Double-check everything looks OK before confirming. Total (per month/year) Go Back Confirm Thank you! Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at support@loremgaming.com.
-    */
 
     return (
-        <div>
-            <h2>Personal info</h2>
-            <p>Please provide your name, email address, and phone number.</p>
+        <div className="grid gap-4">
+            <h2 className="text-2xl font-bold leading-[1.2] text-[hsl(var(--blue-950))]">
+                Personal info
+            </h2>
+            <p className="text-base text-[hsl(var(--grey))] leading-[1.5]">
+                Please provide your name, email address, and phone number.
+            </p>
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="w-full space-y-6"
+                    className="w-full space-y-6 form"
                 >
                     <FormField
                         control={form.control}
                         name="name"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Name</FormLabel>
+                                <FormLabel className="text-[hsl(var(--blue-950))] text-xs leading-[1.2] font-medium">
+                                    Name
+                                </FormLabel>
                                 <FormControl>
-                                    <Input placeholder="shadcn" {...field} />
+                                    <Input
+                                        placeholder="Chamu"
+                                        {...field}
+                                        className="text-sm text-[hsl(var(--grey))] leading-[1.5]"
+                                    />
                                 </FormControl>
 
                                 <FormMessage />
@@ -89,10 +93,13 @@ VStep 1 Your info Step
                         name="email"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Email Address</FormLabel>
+                                <FormLabel className="text-[hsl(var(--blue-950))] text-xs leading-[1.2] font-medium">
+                                    Email Address
+                                </FormLabel>
                                 <FormControl>
                                     <Input
                                         placeholder="ckmutezva@gmail.com"
+                                        className="text-sm text-[hsl(var(--grey))] leading-[1.5]"
                                         {...field}
                                     />
                                 </FormControl>
@@ -106,23 +113,27 @@ VStep 1 Your info Step
                         name="phone"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Phone Number</FormLabel>
+                                <FormLabel className="text-[hsl(var(--blue-950))] text-xs leading-[1.2] font-medium">
+                                    Phone Number
+                                </FormLabel>
                                 <FormControl>
                                     <Input
                                         placeholder="+27 832678210"
                                         {...field}
+                                        className="text-sm text-[hsl(var(--grey))] leading-[1.5]"
                                     />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
-                    <div className="mt-6 relative bottom-0 left-0 right-0 bg-white p-4 flex justify-end">
+                    <div className="mt-6 fixed sm:relative bottom-0 left-0 right-0 bg-white p-4 flex justify-end">
                         <Button
                             type="submit"
-                            className="text-[var(--secondary)]"
+                            variant="secondary"
+                            className="text-[var(--primary)] bg-secondary"
                         >
-                            Submit
+                            Next Step
                         </Button>
                     </div>
                 </form>
