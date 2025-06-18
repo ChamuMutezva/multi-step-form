@@ -1,7 +1,8 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useFormContext } from "@/context/Formcontext";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -16,48 +17,51 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { plans } from "@/components/plans";
+import Image from "next/image";
 
-const FormSchema = z.object({
-    plans: z.boolean().default(false).optional(),
+const planSchema = z.object({
     type: z.enum(["arcade", "advanced", "pro"], {
-        required_error: "You need to select a notification type.",
+        required_error: "Please select a plan type",
+    }),
+    billing: z.enum(["monthly", "yearly"], {
+        required_error: "Please select a billing cycle",
     }),
 });
 
-interface PaymentsPlanProps {
-    handleNextStep: () => void;
-    handlePreviousStep: () => void;
-}
+export function PaymentsPlan() {
+    const { nextStep, prevStep, formMethods } = useFormContext();
 
-export function PaymentsPlan({
-    handleNextStep,
-    handlePreviousStep,
-}: Readonly<PaymentsPlanProps>) {
-    const form = useForm<z.infer<typeof FormSchema>>({
-        resolver: zodResolver(FormSchema),
+    const form = useForm<z.infer<typeof planSchema>>({
+        resolver: zodResolver(planSchema),
         defaultValues: {
-            plans: false,
-            type: "arcade",
+            type: formMethods.getValues("plan.type") || "arcade",
+            billing: formMethods.getValues("plan.billing") || "monthly",
         },
     });
 
-    function onSubmit(data: z.infer<typeof FormSchema>) {
-        console.log("Form submitted with data:", data);
-        toast("You submitted the following values", {
-            description: (
-                <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-                    <code className="text-white">
-                        {JSON.stringify(data, null, 2)}
-                    </code>
-                </pre>
-            ),
-        });
-        handleNextStep();
+    const billingCycle = form.watch("billing");
+
+    async function onSubmit(data: z.infer<typeof planSchema>) {
+        try {
+            const isValid = await form.trigger();
+            if (isValid) {
+                formMethods.setValue("plan", data, { shouldValidate: true });
+                toast.success("Plan selection saved");
+                nextStep();
+            }
+        } catch (error) {
+            console.error("Error during plan selection:", error);
+            toast.error("Please fix the errors in the form");
+        }
     }
 
     return (
         <div className="grid gap-4">
             <h2 className="text-2xl font-semibold">Select your plan</h2>
+            <p className="text-gray-500">
+                You have the option of monthly or yearly billing.
+            </p>
+
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
@@ -68,45 +72,56 @@ export function PaymentsPlan({
                         name="type"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>
-                                    You have the option of monthly and yearly
-                                    billing
-                                </FormLabel>
                                 <FormControl>
                                     <RadioGroup
                                         value={field.value}
                                         onValueChange={field.onChange}
-                                        className="flex flex-col gap-3 mt-4"
+                                        className="grid gap-3 mt-4"
                                     >
                                         {plans.map((plan) => (
-                                            <label
+                                            <div
                                                 key={plan.value}
-                                                htmlFor={plan.value}
-                                                className={`flex items-center gap-4 rounded-xl border p-4 cursor-pointer transition
-                                               ${
-                                                   field.value === plan.value
-                                                       ? "border-blue-400 bg-blue-50 shadow"
-                                                       : "border-gray-200 bg-white"
-                                               } hover:border-blue-400 `}
+                                                className="relative"
                                             >
                                                 <RadioGroupItem
                                                     value={plan.value}
                                                     id={plan.value}
-                                                    className="sr-only"
+                                                    className="absolute opacity-0 w-0 h-0"
                                                 />
-                                                {plan.icon}
-                                                <div className="flex-1">
-                                                    <div className="text-base font-semibold">
-                                                        {plan.label}
+                                                <label
+                                                    htmlFor={plan.value}
+                                                    className={`flex items-start gap-4 rounded-lg border p-4 cursor-pointer transition-all
+                                                        ${
+                                                            field.value ===
+                                                            plan.value
+                                                                ? "border-[hsl(var(--purple-600))] bg-[hsl(var(--blue-50))]"
+                                                                : "border-gray-300 hover:border-purple-300"
+                                                        }
+                                                    `}
+                                                >
+                                                    {plan.icon}
+
+                                                    <div className="flex-1 sm:flex sm:justify-between sm:items-center">
+                                                        <div className="">
+                                                            <div className="font-medium">
+                                                                {plan.label}
+                                                            </div>
+                                                            <div className="text-sm text-gray-500">
+                                                                {billingCycle ===
+                                                                "yearly"
+                                                                    ? plan.yearlyPrice
+                                                                    : plan.monthlyPrice}
+                                                            </div>
+                                                        </div>
+                                                        {billingCycle ===
+                                                            "yearly" && (
+                                                            <div className="text-xs text-purple-600 mt-1">
+                                                                {plan.promo}
+                                                            </div>
+                                                        )}
                                                     </div>
-                                                    <div className="text-gray-500">
-                                                        {plan.price}
-                                                    </div>
-                                                    <div className="text-xs text-blue-600 font-medium">
-                                                        {plan.promo}
-                                                    </div>
-                                                </div>
-                                            </label>
+                                                </label>
+                                            </div>
                                         ))}
                                     </RadioGroup>
                                 </FormControl>
@@ -115,61 +130,55 @@ export function PaymentsPlan({
                         )}
                     />
 
-                    <div className="space-y-4">
+                    <div className="bg-gray-50 p-4 rounded-lg">
                         <FormField
                             control={form.control}
-                            name="plans"
+                            name="billing"
                             render={({ field }) => (
-                                <FormItem className="flex flex-row items-center justify-center rounded-lg border p-3 shadow-sm">
-                                    <div className="space-y-0.5">
-                                        <FormLabel
-                                            className="cursor-pointer"
-                                            onClick={() =>
-                                                field.onChange(false)
-                                            }
-                                        >
-                                            Monthly
-                                        </FormLabel>
-                                    </div>
+                                <FormItem className="flex items-center justify-center space-x-4">
+                                    <FormLabel
+                                        className={
+                                            field.value === "monthly"
+                                                ? "font-semibold"
+                                                : ""
+                                        }
+                                    >
+                                        Monthly
+                                    </FormLabel>
                                     <FormControl>
-                                        <div className="flex items-center px-2">
-                                            <Switch
-                                                checked={field.value}
-                                                onCheckedChange={field.onChange}
-                                                className="data-[state=checked]:bg-secondary data-[state=unchecked]:bg-input"
-                                            />
-                                        </div>
+                                        <Switch
+                                            checked={field.value === "yearly"}
+                                            onCheckedChange={(checked) =>
+                                                field.onChange(
+                                                    checked
+                                                        ? "yearly"
+                                                        : "monthly"
+                                                )
+                                            }
+                                        />
                                     </FormControl>
-                                    <div className="space-y-0.5">
-                                        <FormLabel
-                                            className="cursor-pointer"
-                                            onClick={() => field.onChange(true)}
-                                        >
-                                            Yearly
-                                        </FormLabel>
-                                    </div>
+                                    <FormLabel
+                                        className={
+                                            field.value === "yearly"
+                                                ? "font-semibold"
+                                                : ""
+                                        }
+                                    >
+                                        Yearly
+                                    </FormLabel>
                                 </FormItem>
                             )}
                         />
                     </div>
-                    <div className="flex justify-between mt-6 w-full">
-                        <Button
-                            className="text-[var(--secondary)]"
-                            onClick={handlePreviousStep}
-                        >
-                            Previous Step
+
+                    <div className="flex justify-between mt-6">
+                        <Button variant="ghost" onClick={prevStep}>
+                            Go Back
                         </Button>
-                        <Button
-                            type="submit"
-                            className="text-[var(--secondary)]"
-                        >
-                            Next Step
-                        </Button>
+                        <Button type="submit">Next Step</Button>
                     </div>
                 </form>
             </Form>
         </div>
     );
 }
-
-export default PaymentsPlan;

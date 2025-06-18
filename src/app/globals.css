@@ -40,10 +40,10 @@
     --secondary: hsl(var(--black));
     --input: hsl(var(--blue-950));
     --secondary-foreground: hsl(var(--blue-950));
+    --border: hsl(var(--purple-600));
+    --card: hsl(var(--blue-50));
 
     --foreground: oklch(0.145 0 0);
-
-    --card: oklch(1 0 0);
 
     --card-foreground: oklch(0.145 0 0);
 
@@ -62,8 +62,6 @@
     --accent-foreground: oklch(0.205 0 0);
 
     --destructive: oklch(0.577 0.245 27.325);
-
-    --border: oklch(0.922 0 0);
 
     --ring: oklch(0.708 0 0);
 

@@ -1,7 +1,8 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useFormContext } from "@/context/Formcontext";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -16,43 +17,55 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-const FormSchema = z.object({
+const personalInfoSchema = z.object({
     name: z.string().min(2, {
         message: "Username must be at least 2 characters.",
     }),
     email: z.string().email({
         message: "Please enter a valid email address.",
     }),
-    phone: z.string().optional(),
+    phone: z.string().min(10, {
+        message: "Phone number must be at least 10 digits.",
+    }),
 });
 
-interface PersonalInformationProps {
-    handleNextStep: () => void;
-}
+export function PersonalInformation() {
+    const { nextStep, formMethods } = useFormContext();
 
-export function PersonalInformation({
-    handleNextStep,
-}: Readonly<PersonalInformationProps>) {
-    const form = useForm<z.infer<typeof FormSchema>>({
-        resolver: zodResolver(FormSchema),
-        defaultValues: {
+    // Initialize form with values from the main form if they exist
+    const form = useForm<z.infer<typeof personalInfoSchema>>({
+        resolver: zodResolver(personalInfoSchema),
+        defaultValues: formMethods.getValues("personalInfo") || {
             name: "",
             email: "",
             phone: "",
         },
     });
 
-    function onSubmit(data: z.infer<typeof FormSchema>) {
-        toast("You submitted the following values", {
-            description: (
-                <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-                    <code className="text-white">
-                        {JSON.stringify(data, null, 2)}
-                    </code>
-                </pre>
-            ),
-        });
-        handleNextStep();
+    async function onSubmit(data: z.infer<typeof personalInfoSchema>) {
+        try {
+            // Validate all fields
+            const isValid = await form.trigger();
+
+            if (isValid) {
+                // Save to form context
+                formMethods.setValue("personalInfo", data, {
+                    shouldValidate: true,
+                });
+
+                // Get updated values and log them
+                const currentValues = formMethods.getValues();
+                console.log("Saved values:", currentValues);
+
+                toast.success("Personal information saved");
+                nextStep();
+            } else {
+                toast.error("Please fix the errors in the form");
+            }
+        } catch (error) {
+            console.error("Error saving personal information:", error);
+            toast.error("An error occurred while saving");
+        }
     }
 
     return (
@@ -63,6 +76,8 @@ export function PersonalInformation({
             <p className="text-base text-[hsl(var(--grey))] leading-[1.5]">
                 Please provide your name, email address, and phone number.
             </p>
+
+            {/* Use the local form instance */}
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
@@ -83,7 +98,6 @@ export function PersonalInformation({
                                         className="text-sm text-[hsl(var(--grey))] leading-[1.5]"
                                     />
                                 </FormControl>
-
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -103,7 +117,6 @@ export function PersonalInformation({
                                         {...field}
                                     />
                                 </FormControl>
-
                                 <FormMessage />
                             </FormItem>
                         )}

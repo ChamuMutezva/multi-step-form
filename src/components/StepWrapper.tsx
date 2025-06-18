@@ -4,9 +4,11 @@ import { PersonalInformation } from "./Step1";
 import { PaymentsPlan } from "./Step2";
 import { AddsOn } from "./Step3";
 import { FinishingUp } from "./Step4";
+import { useFormContext } from "@/context/Formcontext";
 
 function StepWrapper() {
     const [step, setStep] = React.useState(1);
+    const { currentStep } = useFormContext();
 
     const handleNextStep = () => {
         setStep((prevStep) => Math.min(prevStep + 1, 4));
@@ -19,18 +21,13 @@ function StepWrapper() {
     };
 
     function renderStep(step: number, handleNextStep: () => void) {
-        if (step === 1) {
-            return <PersonalInformation handleNextStep={handleNextStep} />;
-        } else if (step === 2) {
-            return (
-                <PaymentsPlan
-                    handleNextStep={handleNextStep}
-                    handlePreviousStep={handlePreviousStep}
-                />
-            );
-        } else if (step === 3) {
+        if (currentStep === 1) {
+            return <PersonalInformation />;
+        } else if (currentStep === 2) {
+            return <PaymentsPlan />;
+        } else if (currentStep === 3) {
             return <AddsOn handleNextStep={handleNextStep} />;
-        } else if (step === 4) {
+        } else if (currentStep === 4) {
             return <FinishingUp handleNextStep={handleNextStep} />;
         } else {
             return null; // Or a fallback component/message
