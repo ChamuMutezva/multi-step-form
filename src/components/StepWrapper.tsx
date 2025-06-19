@@ -15,18 +15,13 @@ function StepWrapper() {
         console.log("Next step:", step);
     };
 
-    const handlePreviousStep = () => {
-        setStep((prevStep) => Math.max(prevStep - 1, 1));
-        console.log("Previous step:", step);
-    };
-
     function renderStep(step: number, handleNextStep: () => void) {
         if (currentStep === 1) {
             return <PersonalInformation />;
         } else if (currentStep === 2) {
             return <PaymentsPlan />;
         } else if (currentStep === 3) {
-            return <AddsOn handleNextStep={handleNextStep} />;
+            return <AddsOn />;
         } else if (currentStep === 4) {
             return <FinishingUp handleNextStep={handleNextStep} />;
         } else {

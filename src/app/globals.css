@@ -42,8 +42,7 @@
     --secondary-foreground: hsl(var(--blue-950));
     --border: hsl(var(--purple-600));
     --card: hsl(var(--blue-50));
-
-    --foreground: oklch(0.145 0 0);
+    --foreground: hsl(var(--purple-600));
 
     --card-foreground: oklch(0.145 0 0);
 

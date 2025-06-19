@@ -17,7 +17,6 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { plans } from "@/components/plans";
-import Image from "next/image";
 
 const planSchema = z.object({
     type: z.enum(["arcade", "advanced", "pro"], {
@@ -175,7 +174,13 @@ export function PaymentsPlan() {
                         <Button variant="ghost" onClick={prevStep}>
                             Go Back
                         </Button>
-                        <Button type="submit">Next Step</Button>
+                        <Button
+                            type="submit"
+                            variant="secondary"
+                            className="text-white"
+                        >
+                            Next Step
+                        </Button>
                     </div>
                 </form>
             </Form>
