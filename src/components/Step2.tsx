@@ -108,8 +108,8 @@ export function PaymentsPlan() {
                                                             <div className="text-sm text-gray-500">
                                                                 {billingCycle ===
                                                                 "yearly"
-                                                                    ? plan.yearlyPrice
-                                                                    : plan.monthlyPrice}
+                                                                    ? `$${plan.yearlyPrice}/yr`
+                                                                    : `$${plan.monthlyPrice}/mo`}
                                                             </div>
                                                         </div>
                                                         {billingCycle ===

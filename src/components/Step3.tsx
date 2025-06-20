@@ -13,7 +13,7 @@ import {
     FormDescription,
     FormField,
     FormItem,
-    FormLabel,    
+    FormLabel,
 } from "@/components/ui/form";
 import { useEffect } from "react";
 
@@ -25,6 +25,7 @@ const addOnsSchema = z.object({
 
 export function AddsOn() {
     const { nextStep, prevStep, formMethods } = useFormContext();
+    const billingCycle = formMethods.watch("plan.billing");
 
     // Initialize form with values from the main form if they exist
     const form = useForm<z.infer<typeof addOnsSchema>>({
@@ -39,8 +40,9 @@ export function AddsOn() {
         },
     });
 
-     // Watch all fields to update context immediately
+    // Watch all fields to update context immediately
     const addOnsValues = form.watch();
+
     useEffect(() => {
         formMethods.setValue("addOns", addOnsValues, { shouldValidate: false });
     }, [addOnsValues, formMethods]);
@@ -50,30 +52,28 @@ export function AddsOn() {
             id: "onlineService",
             label: "Online Service",
             description: "Access to multiplayer games",
-            rate: "+$10/yr",
+            monthlyPrice: 1,
+            yearlyPrice: 10,
         },
         {
             id: "largerStorage",
             label: "Larger Storage",
             description: "Extra 1TB of cloud save",
-            rate: "+$20/yr",
+            monthlyPrice: 2,
+            yearlyPrice: 20,
         },
         {
             id: "customizableProfile",
             label: "Customizable Profile",
             description: "Custom theme on your profile",
-            rate: "+$20/yr",
+            monthlyPrice: 2,
+            yearlyPrice: 20,
         },
     ] as const;
 
     async function onSubmit(data: z.infer<typeof addOnsSchema>) {
         try {
-            // Save to form context
             formMethods.setValue("addOns", data, { shouldValidate: true });
-
-            // Log the updated values
-            console.log("Saved add-ons:", formMethods.getValues("addOns"));
-
             toast.success("Add-ons selection saved");
             nextStep();
         } catch (error) {
@@ -127,7 +127,14 @@ export function AddsOn() {
                                                 </FormDescription>
                                             </div>
                                             <div className="text-sm text-purple-600">
-                                                {addOn.rate}
+                                                +$
+                                                {billingCycle === "yearly"
+                                                    ? addOn.yearlyPrice
+                                                    : addOn.monthlyPrice}
+                                                /
+                                                {billingCycle === "yearly"
+                                                    ? "yr"
+                                                    : "mo"}
                                             </div>
                                         </div>
                                     </FormControl>

@@ -5,8 +5,8 @@ export const plans = [
     {
         value: "arcade",
         label: "Arcade",
-        monthlyPrice: "$9/mo",
-        yearlyPrice: "$90/yr",
+        monthlyPrice: 9,
+        yearlyPrice: 90,
         promo: "2 months free",
         icon: (
             <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-orange-100">
@@ -22,8 +22,8 @@ export const plans = [
     {
         value: "advanced",
         label: "Advanced",
-        monthlyPrice: "$12/mo",
-        yearlyPrice: "$120/yr",
+        monthlyPrice: 12,
+        yearlyPrice: 120,
         promo: "2 months free",
         icon: (
             <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-pink-100">
@@ -39,8 +39,8 @@ export const plans = [
     {
         value: "pro",
         label: "Pro",
-        monthlyPrice: "$15/mo",
-        yearlyPrice: "$150/yr",
+        monthlyPrice: 15,
+        yearlyPrice: 150,
         promo: "2 months free",
         icon: (
             <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-indigo-100">
