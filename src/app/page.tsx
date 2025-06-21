@@ -1,4 +1,5 @@
 import StepWrapper from "@/components/StepWrapper";
+import FormSteps from "@/components/FormSteps";
 import React from "react";
 
 export default function Home() {
@@ -14,9 +15,11 @@ export default function Home() {
                 <div
                     className="z-10 bg-[url('/assets/images/bg-sidebar-mobile.svg')] bg-no-repeat bg-cover w-full 
                     h-[10.75rem] sm:bg-[url('/assets/images/bg-sidebar-desktop.svg')] pt-8 sm:pt-0 overflow-hidden
-                    sm:w-[250px] sm:min-h-[400px] absolute top-0 left-0 sm:h-full sm:relative sm:flex sm:flex-col 
+                    sm:w-[250px] sm:min-h-[400px] absolute top-0 left-0 sm:h-auto sm:relative sm:flex sm:flex-col 
                     sm:items-center sm:justify-center"
                 >
+                    <FormSteps />
+                    {/*
                     <div className="flex flex-row sm:flex-col items-center justify-center gap-4">
                         <span className="progress-indicator h-8 w-8 flex justify-center items-center bg-amber-100 rounded-full">
                             1
@@ -31,6 +34,7 @@ export default function Home() {
                             4
                         </span>
                     </div>
+                    */}
                 </div>
                 <StepWrapper />
             </main>

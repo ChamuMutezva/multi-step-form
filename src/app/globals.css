@@ -43,14 +43,12 @@
     --border: hsl(var(--purple-600));
     --card: hsl(var(--blue-50));
     --foreground: hsl(var(--purple-600));
-
-    --card-foreground: oklch(0.145 0 0);
+    --primary-foreground: hsl(var(--blue-200));
+    --card-foreground: hsl(var(--blue-300));
 
     --popover: oklch(1 0 0);
 
     --popover-foreground: oklch(0.145 0 0);
-
-    --primary-foreground: oklch(0.985 0 0);
 
     --muted: oklch(0.97 0 0);
 

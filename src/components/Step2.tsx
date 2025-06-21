@@ -56,8 +56,10 @@ export function PaymentsPlan() {
 
     return (
         <div className="grid gap-4">
-            <h2 className="text-2xl font-semibold">Select your plan</h2>
-            <p className="text-gray-500">
+            <h2 className="text-2xl font-bold leading-[1.2] text-[hsl(var(--blue-950))]">
+                Select your plan
+            </h2>
+            <p className="text-base text-[hsl(var(--grey))] leading-[1.5]">
                 You have the option of monthly or yearly billing.
             </p>
 

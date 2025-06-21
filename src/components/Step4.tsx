@@ -71,8 +71,8 @@ export function FinishingUp() {
 
     return (
         <div className="grid gap-4">
-            <h2 className="text-2xl font-semibold">Finishing up</h2>
-            <p className="text-gray-500">
+            <h2 className="text-2xl font-bold leading-[1.2] text-[hsl(var(--blue-950))]">Finishing up</h2>
+            <p className="text-base text-[hsl(var(--grey))] leading-[1.5]">
                 Double-check everything looks OK before confirming.
             </p>
 

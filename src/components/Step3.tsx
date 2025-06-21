@@ -84,8 +84,10 @@ export function AddsOn() {
 
     return (
         <div className="grid gap-4">
-            <h2 className="text-2xl font-semibold">Pick add-ons</h2>
-            <p className="text-gray-500">
+            <h2 className="text-2xl font-bold leading-[1.2] text-[hsl(var(--blue-950))]">
+                Pick add-ons
+            </h2>
+            <p className="text-base text-[hsl(var(--grey))] leading-[1.5]">
                 Add-ons help enhance your gaming experience.
             </p>
 
