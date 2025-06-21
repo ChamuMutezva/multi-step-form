@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
+import Hero from "./Hero";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -70,14 +71,12 @@ export function PersonalInformation() {
 
     return (
         <div className="flex flex-col gap-4 h-full justify-items-stretch pr-10">
-            <div className="flex flex-col gap-4">
-                <h2 className="text-2xl font-bold leading-[1.2] text-[hsl(var(--blue-950))]">
-                    Personal info
-                </h2>
-                <p className="text-base text-[hsl(var(--grey))] leading-[1.5]">
-                    Please provide your name, email address, and phone number.
-                </p>
-            </div>
+            <Hero
+                title={"Personal info"}
+                description={
+                    "Please provide your name, email address, and phone number."
+                }
+            />
             <div className="flex-1 flex flex-col">
                 <Form {...form}>
                     <form

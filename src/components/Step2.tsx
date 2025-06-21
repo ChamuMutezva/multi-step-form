@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import Hero from "./Hero";
 import {
     Form,
     FormControl,
@@ -55,43 +56,43 @@ export function PaymentsPlan() {
     }
 
     return (
-        <div className="grid gap-4">
-            <h2 className="text-2xl font-bold leading-[1.2] text-[hsl(var(--blue-950))]">
-                Select your plan
-            </h2>
-            <p className="text-base text-[hsl(var(--grey))] leading-[1.5]">
-                You have the option of monthly or yearly billing.
-            </p>
-
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="w-full space-y-6"
-                >
-                    <FormField
-                        control={form.control}
-                        name="type"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <RadioGroup
-                                        value={field.value}
-                                        onValueChange={field.onChange}
-                                        className="grid gap-3 mt-4"
-                                    >
-                                        {plans.map((plan) => (
-                                            <div
-                                                key={plan.value}
-                                                className="relative"
-                                            >
-                                                <RadioGroupItem
-                                                    value={plan.value}
-                                                    id={plan.value}
-                                                    className="absolute opacity-0 w-0 h-0"
-                                                />
-                                                <label
-                                                    htmlFor={plan.value}
-                                                    className={`flex items-start gap-4 rounded-lg border p-4 cursor-pointer transition-all
+        <div className="flex flex-col gap-4 h-full justify-items-stretch pr-10">
+            <Hero
+                title={"Select your plan"}
+                description={
+                    "You have the option of monthly or yearly billing."
+                }
+            />
+            <div className="flex-1 flex flex-col">
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="w-full space-y-6"
+                    >
+                        <FormField
+                            control={form.control}
+                            name="type"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormControl>
+                                        <RadioGroup
+                                            value={field.value}
+                                            onValueChange={field.onChange}
+                                            className="grid gap-3 mt-4"
+                                        >
+                                            {plans.map((plan) => (
+                                                <div
+                                                    key={plan.value}
+                                                    className="relative"
+                                                >
+                                                    <RadioGroupItem
+                                                        value={plan.value}
+                                                        id={plan.value}
+                                                        className="absolute opacity-0 w-0 h-0"
+                                                    />
+                                                    <label
+                                                        htmlFor={plan.value}
+                                                        className={`flex items-start gap-4 rounded-lg border p-4 cursor-pointer transition-all
                                                         ${
                                                             field.value ===
                                                             plan.value
@@ -99,93 +100,96 @@ export function PaymentsPlan() {
                                                                 : "border-gray-300 hover:border-purple-300"
                                                         }
                                                     `}
-                                                >
-                                                    {plan.icon}
+                                                    >
+                                                        {plan.icon}
 
-                                                    <div className="flex-1 sm:flex sm:justify-between sm:items-center">
-                                                        <div className="">
-                                                            <div className="font-medium">
-                                                                {plan.label}
+                                                        <div className="flex-1 sm:flex sm:justify-between sm:items-center">
+                                                            <div className="">
+                                                                <div className="font-medium">
+                                                                    {plan.label}
+                                                                </div>
+                                                                <div className="text-sm text-gray-500">
+                                                                    {billingCycle ===
+                                                                    "yearly"
+                                                                        ? `$${plan.yearlyPrice}/yr`
+                                                                        : `$${plan.monthlyPrice}/mo`}
+                                                                </div>
                                                             </div>
-                                                            <div className="text-sm text-gray-500">
-                                                                {billingCycle ===
-                                                                "yearly"
-                                                                    ? `$${plan.yearlyPrice}/yr`
-                                                                    : `$${plan.monthlyPrice}/mo`}
-                                                            </div>
+                                                            {billingCycle ===
+                                                                "yearly" && (
+                                                                <div className="text-xs text-purple-600 mt-1">
+                                                                    {plan.promo}
+                                                                </div>
+                                                            )}
                                                         </div>
-                                                        {billingCycle ===
-                                                            "yearly" && (
-                                                            <div className="text-xs text-purple-600 mt-1">
-                                                                {plan.promo}
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </RadioGroup>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                        <FormField
-                            control={form.control}
-                            name="billing"
-                            render={({ field }) => (
-                                <FormItem className="flex items-center justify-center space-x-4">
-                                    <FormLabel
-                                        className={
-                                            field.value === "monthly"
-                                                ? "font-semibold"
-                                                : ""
-                                        }
-                                    >
-                                        Monthly
-                                    </FormLabel>
-                                    <FormControl>
-                                        <Switch
-                                            checked={field.value === "yearly"}
-                                            onCheckedChange={(checked) =>
-                                                field.onChange(
-                                                    checked
-                                                        ? "yearly"
-                                                        : "monthly"
-                                                )
-                                            }
-                                        />
+                                                    </label>
+                                                </div>
+                                            ))}
+                                        </RadioGroup>
                                     </FormControl>
-                                    <FormLabel
-                                        className={
-                                            field.value === "yearly"
-                                                ? "font-semibold"
-                                                : ""
-                                        }
-                                    >
-                                        Yearly
-                                    </FormLabel>
+                                    <FormMessage />
                                 </FormItem>
                             )}
                         />
-                    </div>
 
-                    <div className="flex justify-between mt-6">
-                        <Button variant="ghost" onClick={prevStep}>
-                            Go Back
-                        </Button>
-                        <Button
-                            type="submit"
-                            variant="secondary"
-                            className="text-white"
-                        >
-                            Next Step
-                        </Button>
-                    </div>
-                </form>
-            </Form>
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                            <FormField
+                                control={form.control}
+                                name="billing"
+                                render={({ field }) => (
+                                    <FormItem className="flex items-center justify-center space-x-4">
+                                        <FormLabel
+                                            className={
+                                                field.value === "monthly"
+                                                    ? "font-semibold"
+                                                    : ""
+                                            }
+                                        >
+                                            Monthly
+                                        </FormLabel>
+                                        <FormControl>
+                                            <Switch
+                                                checked={
+                                                    field.value === "yearly"
+                                                }
+                                                onCheckedChange={(checked) =>
+                                                    field.onChange(
+                                                        checked
+                                                            ? "yearly"
+                                                            : "monthly"
+                                                    )
+                                                }
+                                            />
+                                        </FormControl>
+                                        <FormLabel
+                                            className={
+                                                field.value === "yearly"
+                                                    ? "font-semibold"
+                                                    : ""
+                                            }
+                                        >
+                                            Yearly
+                                        </FormLabel>
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+
+                        <div className="flex justify-between mt-6">
+                            <Button variant="ghost" onClick={prevStep}>
+                                Go Back
+                            </Button>
+                            <Button
+                                type="submit"
+                                variant="secondary"
+                                className="text-white"
+                            >
+                                Next Step
+                            </Button>
+                        </div>
+                    </form>
+                </Form>
+            </div>
         </div>
     );
 }

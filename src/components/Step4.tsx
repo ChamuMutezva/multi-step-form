@@ -3,6 +3,7 @@
 import { useFormContext } from "@/context/Formcontext";
 import { Button } from "@/components/ui/button";
 import { plans } from "@/components/plans";
+import Hero from "./Hero";
 
 export function FinishingUp() {
     const { prevStep, nextStep, formMethods } = useFormContext();
@@ -41,7 +42,11 @@ export function FinishingUp() {
     ];
 
     // Calculate add-ons total and filter selected add-ons
-    type SelectedAddOn = { label: string; price: number; billingPeriod: string };
+    type SelectedAddOn = {
+        label: string;
+        price: number;
+        billingPeriod: string;
+    };
     const { addOnsTotal, selectedAddOns } = addOnsConfig.reduce<{
         addOnsTotal: number;
         selectedAddOns: SelectedAddOn[];
@@ -65,16 +70,15 @@ export function FinishingUp() {
 
     const handleConfirm = () => {
         console.log("Final submission:", formData);
-        // Handle form submission here
-        nextStep()
+        nextStep();
     };
 
     return (
-        <div className="grid gap-4">
-            <h2 className="text-2xl font-bold leading-[1.2] text-[hsl(var(--blue-950))]">Finishing up</h2>
-            <p className="text-base text-[hsl(var(--grey))] leading-[1.5]">
-                Double-check everything looks OK before confirming.
-            </p>
+        <div className="flex flex-col gap-4 h-full justify-items-stretch pr-10">
+            <Hero
+                title="Finishing up"
+                description="Double-check everything looks OK before confirming."
+            />
 
             <div className="bg-gray-50 rounded-lg p-6">
                 {/* Plan Summary */}
@@ -84,6 +88,7 @@ export function FinishingUp() {
                             {selectedPlan?.label} ({formData.plan.billing})
                         </h3>
                         <button
+                            type="button"
                             onClick={() => prevStep()}
                             className="text-gray-500 underline text-sm hover:text-purple-600"
                         >

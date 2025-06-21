@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import Hero from "./Hero";
 import {
     Form,
     FormControl,
@@ -83,86 +84,89 @@ export function AddsOn() {
     }
 
     return (
-        <div className="grid gap-4">
-            <h2 className="text-2xl font-bold leading-[1.2] text-[hsl(var(--blue-950))]">
-                Pick add-ons
-            </h2>
-            <p className="text-base text-[hsl(var(--grey))] leading-[1.5]">
-                Add-ons help enhance your gaming experience.
-            </p>
-
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-4"
-                >
-                    {addOns.map((addOn) => (
-                        <FormField
-                            key={addOn.id}
-                            control={form.control}
-                            name={
-                                addOn.id as keyof z.infer<typeof addOnsSchema>
-                            }
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormControl>
-                                        <div
-                                            className={`flex items-center gap-4 p-4 border rounded-lg transition-colors
+        <div className="flex flex-col gap-4 h-full justify-items-stretch pr-10">
+            <Hero
+                title={"Pick add-ons"}
+                description={"Add-ons help enhance your gaming experience."}
+            />
+            <div className="flex-1 flex flex-col">
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-4"
+                    >
+                        {addOns.map((addOn) => (
+                            <FormField
+                                key={addOn.id}
+                                control={form.control}
+                                name={
+                                    addOn.id as keyof z.infer<
+                                        typeof addOnsSchema
+                                    >
+                                }
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <div
+                                                className={`flex items-center gap-4 p-4 border rounded-lg transition-colors
                                             ${
                                                 field.value
                                                     ? "border-purple-600 bg-purple-50"
                                                     : "border-gray-300 hover:border-purple-300"
                                             }
                                         `}
-                                        >
-                                            <Checkbox
-                                                checked={field.value}
-                                                onCheckedChange={field.onChange}
-                                                className="h-5 w-5 rounded"
-                                            />
-                                            <div className="flex-1">
-                                                <FormLabel className="font-medium">
-                                                    {addOn.label}
-                                                </FormLabel>
-                                                <FormDescription className="text-sm">
-                                                    {addOn.description}
-                                                </FormDescription>
+                                            >
+                                                <Checkbox
+                                                    checked={field.value}
+                                                    onCheckedChange={
+                                                        field.onChange
+                                                    }
+                                                    className="h-5 w-5 rounded"
+                                                />
+                                                <div className="flex-1">
+                                                    <FormLabel className="font-medium">
+                                                        {addOn.label}
+                                                    </FormLabel>
+                                                    <FormDescription className="text-sm">
+                                                        {addOn.description}
+                                                    </FormDescription>
+                                                </div>
+                                                <div className="text-sm text-purple-600">
+                                                    +$
+                                                    {billingCycle === "yearly"
+                                                        ? addOn.yearlyPrice
+                                                        : addOn.monthlyPrice}
+                                                    /
+                                                    {billingCycle === "yearly"
+                                                        ? "yr"
+                                                        : "mo"}
+                                                </div>
                                             </div>
-                                            <div className="text-sm text-purple-600">
-                                                +$
-                                                {billingCycle === "yearly"
-                                                    ? addOn.yearlyPrice
-                                                    : addOn.monthlyPrice}
-                                                /
-                                                {billingCycle === "yearly"
-                                                    ? "yr"
-                                                    : "mo"}
-                                            </div>
-                                        </div>
-                                    </FormControl>
-                                </FormItem>
-                            )}
-                        />
-                    ))}
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                        ))}
 
-                    <div className="flex justify-between mt-6">
-                        <Button
-                            variant="ghost"
-                            onClick={prevStep}
-                            type="button"
-                        >
-                            Go Back
-                        </Button>
-                        <Button
-                            type="submit"
-                            variant="secondary"
-                            className="text-white"
-                        >
-                            Next Step
-                        </Button>
-                    </div>
-                </form>
-            </Form>
+                        <div className="flex justify-between mt-6">
+                            <Button
+                                variant="ghost"
+                                onClick={prevStep}
+                                type="button"
+                            >
+                                Go Back
+                            </Button>
+                            <Button
+                                type="submit"
+                                variant="secondary"
+                                className="text-white"
+                            >
+                                Next Step
+                            </Button>
+                        </div>
+                    </form>
+                </Form>
+            </div>
         </div>
     );
 }

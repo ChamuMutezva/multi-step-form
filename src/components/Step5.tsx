@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Hero from "./Hero";
 
 export function ThankYou() {
     return (
@@ -10,15 +11,12 @@ export function ThankYou() {
                 width={56}
                 height={56}
             />
-
-            <h2 className="text-2xl font-bold leading-[1.2] text-[hsl(var(--blue-950))]">
-                Thank You!
-            </h2>
-            <p className="text-base text-[hsl(var(--grey))] leading-[1.5]">
-                Thanks for confirming your subscription! We hope you have fun
+            <Hero
+                title="Thank You!"
+                description="Thanks for confirming your subscription! We hope you have fun
                 using our platform. If you ever need support, please feel free
-                to email us at support@loremgaming.com.
-            </p>
+                to email us at support@loremgaming.com."
+            />
         </div>
     );
 }
