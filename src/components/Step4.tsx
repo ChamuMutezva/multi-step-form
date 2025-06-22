@@ -74,7 +74,7 @@ export function FinishingUp() {
     };
 
     return (
-        <div className="flex flex-col gap-4 h-full justify-items-stretch pr-10">
+         <div className="flex flex-col gap-4 h-full justify-items-stretch sm:px-10 lg:px-[4.7rem]">
             <Hero
                 title="Finishing up"
                 description="Double-check everything looks OK before confirming."

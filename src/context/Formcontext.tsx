@@ -109,6 +109,7 @@ type FormContextType = {
     setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
     nextStep: () => void;
     prevStep: () => void;
+    reset: () => void;
     formMethods: ReturnType<typeof useForm<FormData>>;
 };
 
@@ -132,6 +133,7 @@ export function FormProvider({ children }: { children: React.ReactNode }) {
 
     const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, 5));
     const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
+    const reset = () => setCurrentStep(1);
 
     const contextValue = useMemo(
         () => ({
@@ -139,6 +141,7 @@ export function FormProvider({ children }: { children: React.ReactNode }) {
             setCurrentStep,
             nextStep,
             prevStep,
+            reset,
             formMethods, // Add this to context
         }),
         [currentStep, formMethods] // Add formMethods to dependencies

@@ -45,6 +45,7 @@
     --foreground: hsl(var(--purple-600));
     --primary-foreground: hsl(var(--blue-200));
     --card-foreground: hsl(var(--blue-300));
+    --accent: hsl(var(--grey));
 
     --popover: oklch(1 0 0);
 
@@ -54,7 +55,7 @@
 
     --muted-foreground: oklch(0.556 0 0);
 
-    --accent: oklch(0.97 0 0);
+    
 
     --accent-foreground: oklch(0.205 0 0);
 

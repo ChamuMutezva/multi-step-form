@@ -56,7 +56,7 @@ export function PaymentsPlan() {
     }
 
     return (
-        <div className="flex flex-col gap-4 h-full justify-items-stretch pr-10">
+        <div className="flex flex-col gap-4 h-full justify-items-stretch sm:px-10 lg:px-[4.7rem]">
             <Hero
                 title={"Select your plan"}
                 description={
@@ -67,7 +67,7 @@ export function PaymentsPlan() {
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="w-full space-y-6"
+                        className="w-full h-full flex flex-col justify-between space-y-6"
                     >
                         <FormField
                             control={form.control}
@@ -78,12 +78,12 @@ export function PaymentsPlan() {
                                         <RadioGroup
                                             value={field.value}
                                             onValueChange={field.onChange}
-                                            className="grid gap-3 mt-4"
+                                            className="grid gap-3 mt-4 lg:grid-cols-3"
                                         >
                                             {plans.map((plan) => (
                                                 <div
                                                     key={plan.value}
-                                                    className="relative"
+                                                    className="relative lg:min-w-[8.625rem] lg:min-h-[10rem]"
                                                 >
                                                     <RadioGroupItem
                                                         value={plan.value}
@@ -92,7 +92,8 @@ export function PaymentsPlan() {
                                                     />
                                                     <label
                                                         htmlFor={plan.value}
-                                                        className={`flex items-start gap-4 rounded-lg border p-4 cursor-pointer transition-all
+                                                        className={`flex items-start justify-center gap-4 rounded-lg border p-4 cursor-pointer transition-all
+                                                            lg:flex-col
                                                         ${
                                                             field.value ===
                                                             plan.value
@@ -103,12 +104,15 @@ export function PaymentsPlan() {
                                                     >
                                                         {plan.icon}
 
-                                                        <div className="flex-1 sm:flex sm:justify-between sm:items-center">
+                                                        <div
+                                                            className="flex-1 md:flex md:justify-between md:items-center
+                                                            lg:flex-col lg:items-start"
+                                                        >
                                                             <div className="">
-                                                                <div className="font-medium">
+                                                                <div className="font-medium text-input">
                                                                     {plan.label}
                                                                 </div>
-                                                                <div className="text-sm text-gray-500">
+                                                                <div className="text-sm text-accent">
                                                                     {billingCycle ===
                                                                     "yearly"
                                                                         ? `$${plan.yearlyPrice}/yr`
@@ -117,7 +121,7 @@ export function PaymentsPlan() {
                                                             </div>
                                                             {billingCycle ===
                                                                 "yearly" && (
-                                                                <div className="text-xs text-purple-600 mt-1">
+                                                                <div className="text-xs text-input mt-1">
                                                                     {plan.promo}
                                                                 </div>
                                                             )}
@@ -132,7 +136,7 @@ export function PaymentsPlan() {
                             )}
                         />
 
-                        <div className="bg-gray-50 p-4 rounded-lg">
+                        <div className="bg-[hsl(var(--blue-50))] p-4 rounded-lg">
                             <FormField
                                 control={form.control}
                                 name="billing"
@@ -141,14 +145,15 @@ export function PaymentsPlan() {
                                         <FormLabel
                                             className={
                                                 field.value === "monthly"
-                                                    ? "font-semibold"
-                                                    : ""
+                                                    ? "font-semibold  text-[hsl(var(--blue-950))]"
+                                                    : "text-accent"
                                             }
                                         >
                                             Monthly
                                         </FormLabel>
                                         <FormControl>
                                             <Switch
+                                                className="cursor-pointer"
                                                 checked={
                                                     field.value === "yearly"
                                                 }
@@ -164,8 +169,8 @@ export function PaymentsPlan() {
                                         <FormLabel
                                             className={
                                                 field.value === "yearly"
-                                                    ? "font-semibold"
-                                                    : ""
+                                                    ? "font-semibold text-[hsl(var(--blue-950))]"
+                                                    : "text-accent"
                                             }
                                         >
                                             Yearly
@@ -175,14 +180,18 @@ export function PaymentsPlan() {
                             />
                         </div>
 
-                        <div className="mt-6 fixed sm:relative bottom-0 left-0 right-0 bg-white p-4 flex justify-between w-full">
-                            <Button variant="ghost" onClick={prevStep}>
+                        <div className="mt-6 fixed sm:relative bottom-0 left-0 right-0 bg-white p-4 flex justify-between  w-full">
+                            <Button
+                                variant="ghost"
+                                onClick={prevStep}
+                                className="text-accent cursor-pointer"
+                            >
                                 Go Back
                             </Button>
                             <Button
                                 type="submit"
                                 variant="secondary"
-                                className="text-white"
+                                className="text-white cursor-pointer"
                             >
                                 Next Step
                             </Button>

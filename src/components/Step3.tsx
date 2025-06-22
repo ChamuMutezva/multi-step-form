@@ -84,7 +84,7 @@ export function AddsOn() {
     }
 
     return (
-        <div className="flex flex-col gap-4 h-full justify-items-stretch pr-10">
+        <div className="flex flex-col gap-4 h-full justify-items-stretch sm:px-10 lg:px-[4.7rem]">
             <Hero
                 title={"Pick add-ons"}
                 description={"Add-ons help enhance your gaming experience."}
