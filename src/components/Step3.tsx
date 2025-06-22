@@ -111,7 +111,7 @@ export function AddsOn() {
                                                 className={`flex items-center gap-4 p-4 border rounded-lg transition-colors
                                             ${
                                                 field.value
-                                                    ? "border-purple-600 bg-purple-50"
+                                                    ? "border-accent-foreground bg-card"
                                                     : "border-gray-300 hover:border-purple-300"
                                             }
                                         `}
@@ -124,14 +124,14 @@ export function AddsOn() {
                                                     className="h-5 w-5 rounded"
                                                 />
                                                 <div className="flex-1">
-                                                    <FormLabel className="font-medium">
+                                                    <FormLabel className="font-medium text-secondary-foreground">
                                                         {addOn.label}
                                                     </FormLabel>
-                                                    <FormDescription className="text-sm">
+                                                    <FormDescription className="text-sm text-accent">
                                                         {addOn.description}
                                                     </FormDescription>
                                                 </div>
-                                                <div className="text-sm text-purple-600">
+                                                <div className="text-sm text-accent-foreground">
                                                     +$
                                                     {billingCycle === "yearly"
                                                         ? addOn.yearlyPrice
@@ -153,6 +153,7 @@ export function AddsOn() {
                                 variant="ghost"
                                 onClick={prevStep}
                                 type="button"
+                                className="text-accent cursor-pointer"
                             >
                                 Go Back
                             </Button>
