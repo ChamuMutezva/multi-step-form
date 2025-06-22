@@ -70,7 +70,7 @@ export function PersonalInformation() {
     }
 
     return (
-        <div className="flex flex-col gap-4 h-full justify-items-stretch pr-10">
+        <div className="flex flex-col gap-4 h-full justify-items-stretch sm:px-10 lg:px-[4.7rem]">
             <Hero
                 title={"Personal info"}
                 description={
@@ -96,7 +96,7 @@ export function PersonalInformation() {
                                             <Input
                                                 placeholder="Chamu"
                                                 {...field}
-                                                className="text-sm sm:text-base text-[hsl(var(--grey))] py-6 leading-[1.5]"
+                                                className="text-sm sm:text-base text-input py-6 leading-[1.5] cursor-pointer"
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -114,7 +114,7 @@ export function PersonalInformation() {
                                         <FormControl>
                                             <Input
                                                 placeholder="ckmutezva@gmail.com"
-                                                className="text-sm sm:text-base text-[hsl(var(--grey))] py-6 leading-[1.5]"
+                                                className="text-sm sm:text-base text-input py-6 leading-[1.5] cursor-pointer"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -134,7 +134,7 @@ export function PersonalInformation() {
                                             <Input
                                                 placeholder="+27 832678210"
                                                 {...field}
-                                                className="text-sm sm:text-base text-[hsl(var(--grey))] py-6 leading-[1.5]"
+                                                className="text-sm sm:text-base text-input py-6 leading-[1.5] cursor-pointer"
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -146,7 +146,7 @@ export function PersonalInformation() {
                             <Button
                                 type="submit"
                                 variant="secondary"
-                                className="text-[var(--primary)] bg-secondary"
+                                className="text-[var(--primary)] bg-secondary cursor-pointer"
                             >
                                 Next Step
                             </Button>

@@ -6,7 +6,7 @@ export default function FormSteps() {
     const { currentStep } = useFormContext();
 
     const steps = [
-        { number: 1, title: "Personal Info" },
+        { number: 1, title: "Your Info" },
         { number: 2, title: "Select Plan" },
         { number: 3, title: "Add-ons" },
         { number: 4, title: "Summary" },
@@ -31,10 +31,10 @@ export default function FormSteps() {
                         {step.number}
                     </div>
                     <div className="hidden sm:flex flex-col">
-                        <span className="text-card-foreground font-normal text-xs">
-                            STEP {step.number}
+                        <span className="text-card-foreground font-normal text-xs uppercase">
+                            Step {step.number}
                         </span>
-                        <strong className="text-white text-sm font-bold">
+                        <strong className="text-white text-sm font-bold uppercase">
                             {step.title}
                         </strong>
                     </div>

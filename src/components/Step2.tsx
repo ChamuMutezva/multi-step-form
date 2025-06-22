@@ -175,7 +175,7 @@ export function PaymentsPlan() {
                             />
                         </div>
 
-                        <div className="flex justify-between mt-6">
+                        <div className="mt-6 fixed sm:relative bottom-0 left-0 right-0 bg-white p-4 flex justify-between w-full">
                             <Button variant="ghost" onClick={prevStep}>
                                 Go Back
                             </Button>
