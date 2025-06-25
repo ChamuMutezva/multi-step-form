@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
 import Hero from "./Hero";
-
 import { Button } from "@/components/ui/button";
 import {
     Form,

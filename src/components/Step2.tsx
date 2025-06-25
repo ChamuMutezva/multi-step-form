@@ -83,7 +83,7 @@ export function PaymentsPlan() {
                                             {plans.map((plan) => (
                                                 <div
                                                     key={plan.value}
-                                                    className="relative lg:min-w-[8.625rem] lg:min-h-[10rem]"
+                                                    className="relative lg:min-w-[8.625rem]"
                                                 >
                                                     <RadioGroupItem
                                                         value={plan.value}
@@ -93,7 +93,7 @@ export function PaymentsPlan() {
                                                     <label
                                                         htmlFor={plan.value}
                                                         className={`flex items-start justify-center gap-4 rounded-lg border p-4 cursor-pointer transition-all
-                                                            lg:flex-col
+                                                            lg:flex-col lg:min-h-[10rem]
                                                         ${
                                                             field.value ===
                                                             plan.value

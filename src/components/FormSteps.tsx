@@ -12,7 +12,6 @@ export default function FormSteps() {
         { number: 4, title: "Summary" },
     ];
 
-    console.log("Current Step:", currentStep);
     return (
         <div className="flex flex-row sm:flex-col items-center justify-center gap-8">
             {steps.map((step) => (

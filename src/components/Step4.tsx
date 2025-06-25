@@ -74,28 +74,27 @@ export function FinishingUp() {
     };
 
     return (
-         <div className="flex flex-col gap-4 h-full justify-items-stretch sm:px-10 lg:px-[4.7rem]">
+        <div className="flex flex-col gap-4 h-full justify-between sm:px-10 lg:px-[4.7rem]">
             <Hero
                 title="Finishing up"
                 description="Double-check everything looks OK before confirming."
             />
 
             <div className="bg-gray-50 rounded-lg p-6">
-                {/* Plan Summary */}
-                <div className="flex justify-between items-center border-b pb-4">
+                <div className="flex justify-between items-center border-b border-gray-300 pb-4">
                     <div>
-                        <h3 className="font-medium capitalize">
+                        <h3 className="font-medium capitalize text-input">
                             {selectedPlan?.label} ({formData.plan.billing})
                         </h3>
                         <button
                             type="button"
                             onClick={() => prevStep()}
-                            className="text-gray-500 underline text-sm hover:text-purple-600"
+                            className="text-gray-500 underline text-sm hover:text-foreground transition-colors"
                         >
                             Change
                         </button>
                     </div>
-                    <div className="font-semibold">
+                    <div className="font-semibold text-input">
                         ${planPrice}/{billingPeriod}
                     </div>
                 </div>
@@ -111,7 +110,7 @@ export function FinishingUp() {
                                 <span className="text-gray-500">
                                     {addOn.label}
                                 </span>
-                                <span>
+                                <span className="text-input font-normal">
                                     +${addOn.price}/{addOn.billingPeriod}
                                 </span>
                             </div>
@@ -125,19 +124,24 @@ export function FinishingUp() {
                 <span className="text-gray-500">
                     Total (per {isYearly ? "year" : "month"})
                 </span>
-                <span className="text-xl font-semibold text-purple-600">
+                <span className="text-xl font-semibold text-accent-foreground">
                     ${grandTotal}/{billingPeriod}
                 </span>
             </div>
 
             <div className="mt-6 fixed sm:relative bottom-0 left-0 right-0 bg-white p-4 flex justify-between w-full">
-                <Button variant="ghost" onClick={prevStep} type="button">
+                <Button
+                    variant="ghost"
+                    onClick={prevStep}
+                    type="button"
+                    className="text-accent cursor-pointer"
+                >
                     Go Back
                 </Button>
                 <Button
                     onClick={handleConfirm}
                     variant="secondary"
-                    className="bg-purple-600 hover:bg-purple-700 text-white"
+                    className="bg-accent-foreground hover:bg-muted text-white"
                 >
                     Confirm
                 </Button>

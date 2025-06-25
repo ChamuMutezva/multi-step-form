@@ -115,7 +115,7 @@ type FormContextType = {
 
 const FormContext = createContext<FormContextType | null>(null);
 
-export function FormProvider({ children }: { children: React.ReactNode }) {
+export function FormProvider({ children }: Readonly<{ children: React.ReactNode }>) {
     const [currentStep, setCurrentStep] = useState(1);
     const formMethods = useForm<FormData>({
         resolver: zodResolver(formSchema),

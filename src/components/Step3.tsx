@@ -93,7 +93,7 @@ export function AddsOn() {
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="space-y-4"
+                        className="w-full h-full flex flex-col justify-between space-y-6"
                     >
                         {addOns.map((addOn) => (
                             <FormField
