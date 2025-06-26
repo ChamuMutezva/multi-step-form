@@ -77,63 +77,90 @@
  *
  * @returns {ReturnType<typeof useForm<FormData>>} The form methods and state.
  */
-"use client";
+'use client'
 
-import { createContext, useContext, useState, useMemo } from "react";
-import { useForm, FormProvider as RHFProvider } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import {
+    createContext,
+    useContext,
+    useState,
+    useMemo
+} from 'react'
+import {
+    useForm,
+    FormProvider as RHFProvider
+} from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
 // Define Zod schema for the entire form
 const formSchema = z.object({
     personalInfo: z.object({
-        name: z.string().min(2, "Name must be at least 2 characters"),
-        email: z.string().email("Invalid email address"),
-        phone: z.string().min(10, "Phone number must be at least 10 digits"),
+        name: z
+            .string()
+            .min(2, 'Name must be at least 2 characters'),
+        email: z.string().email('Invalid email address'),
+        phone: z
+            .string()
+            .min(
+                10,
+                'Phone number must be at least 10 digits'
+            )
     }),
     plan: z.object({
-        type: z.enum(["arcade", "advanced", "pro"]),
-        billing: z.enum(["monthly", "yearly"]),
+        type: z.enum(['arcade', 'advanced', 'pro']),
+        billing: z.enum(['monthly', 'yearly'])
     }),
     addOns: z.object({
         onlineService: z.boolean(),
         largerStorage: z.boolean(),
-        customizableProfile: z.boolean(),
-    }),
-});
+        customizableProfile: z.boolean()
+    })
+})
 
-export type FormData = z.infer<typeof formSchema>;
+export type FormData = z.infer<typeof formSchema>
 
 type FormContextType = {
-    currentStep: number;
-    setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-    nextStep: () => void;
-    prevStep: () => void;
-    reset: () => void;
-    formMethods: ReturnType<typeof useForm<FormData>>;
-};
+    currentStep: number
+    setCurrentStep: React.Dispatch<
+        React.SetStateAction<number>
+    >
+    nextStep: () => void
+    prevStep: () => void
+    reset: () => void
+    formMethods: ReturnType<typeof useForm<FormData>>
+}
 
-const FormContext = createContext<FormContextType | null>(null);
+const FormContext = createContext<FormContextType | null>(
+    null
+)
 
-export function FormProvider({ children }: Readonly<{ children: React.ReactNode }>) {
-    const [currentStep, setCurrentStep] = useState(1);
+export function FormProvider({
+    children
+}: Readonly<{ children: React.ReactNode }>) {
+    const [currentStep, setCurrentStep] = useState(1)
     const formMethods = useForm<FormData>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            personalInfo: { name: "", email: "", phone: "" },
-            plan: { type: "arcade", billing: "monthly" },
+            personalInfo: {
+                name: '',
+                email: '',
+                phone: ''
+            },
+            plan: { type: 'arcade', billing: 'monthly' },
             addOns: {
                 onlineService: false,
                 largerStorage: false,
-                customizableProfile: false,
-            },
+                customizableProfile: false
+            }
         },
-        mode: "onChange",
-    });
+        mode: 'onChange'
+    })
 
-    const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, 5));
-    const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
-    const reset = () => setCurrentStep(1);
+    const nextStep = () =>
+        setCurrentStep(prev => Math.min(prev + 1, 5))
+    const prevStep = () =>
+        setCurrentStep(prev => Math.max(prev - 1, 1))
+    const reset = () => setCurrentStep(1)
 
     const contextValue = useMemo(
         () => ({
@@ -142,10 +169,10 @@ export function FormProvider({ children }: Readonly<{ children: React.ReactNode 
             nextStep,
             prevStep,
             reset,
-            formMethods, // Add this to context
+            formMethods // Add this to context
         }),
         [currentStep, formMethods] // Add formMethods to dependencies
-    );
+    )
 
     return (
         <RHFProvider {...formMethods}>
@@ -153,17 +180,19 @@ export function FormProvider({ children }: Readonly<{ children: React.ReactNode 
                 {children}
             </FormContext.Provider>
         </RHFProvider>
-    );
+    )
 }
 
 export function useFormContext() {
-    const context = useContext(FormContext);
+    const context = useContext(FormContext)
     if (!context) {
-        throw new Error("useFormContext must be used within a FormProvider");
+        throw new Error(
+            'useFormContext must be used within a FormProvider'
+        )
     }
-    return context;
+    return context
 }
 
 export function useAppForm() {
-    return useForm<FormData>();
+    return useForm<FormData>()
 }

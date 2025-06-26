@@ -1,117 +1,127 @@
-"use client";
+'use client'
 
-import { useFormContext } from "@/context/Formcontext";
-import { Button } from "@/components/ui/button";
-import { plans } from "@/components/plans";
-import Hero from "./Hero";
+import { useFormContext } from '@/context/Formcontext'
+import { Button } from '@/components/ui/button'
+import { plans } from '@/components/plans'
+import Hero from './Hero'
 
 export function FinishingUp() {
-    const { prevStep, nextStep, formMethods } = useFormContext();
-    const formData = formMethods.getValues();
-    const isYearly = formData.plan.billing === "yearly";
+    const { prevStep, nextStep, formMethods } =
+        useFormContext()
+    const formData = formMethods.getValues()
+    const isYearly = formData.plan.billing === 'yearly'
 
     // Get selected plan details
     const selectedPlan = plans.find(
-        (plan) => plan.value === formData.plan.type
-    );
+        plan => plan.value === formData.plan.type
+    )
     const planPrice = isYearly
-        ? selectedPlan?.yearlyPrice ?? 0
-        : selectedPlan?.monthlyPrice ?? 0;
-    const billingPeriod = isYearly ? "yr" : "mo";
+        ? (selectedPlan?.yearlyPrice ?? 0)
+        : (selectedPlan?.monthlyPrice ?? 0)
+    const billingPeriod = isYearly ? 'yr' : 'mo'
 
     // Add-ons configuration
     const addOnsConfig = [
         {
-            id: "onlineService",
-            label: "Online Service",
+            id: 'onlineService',
+            label: 'Online Service',
             monthlyPrice: 1,
-            yearlyPrice: 10,
+            yearlyPrice: 10
         },
         {
-            id: "largerStorage",
-            label: "Larger Storage",
+            id: 'largerStorage',
+            label: 'Larger Storage',
             monthlyPrice: 2,
-            yearlyPrice: 20,
+            yearlyPrice: 20
         },
         {
-            id: "customizableProfile",
-            label: "Customizable Profile",
+            id: 'customizableProfile',
+            label: 'Customizable Profile',
             monthlyPrice: 2,
-            yearlyPrice: 20,
-        },
-    ];
+            yearlyPrice: 20
+        }
+    ]
 
     // Calculate add-ons total and filter selected add-ons
     type SelectedAddOn = {
-        label: string;
-        price: number;
-        billingPeriod: string;
-    };
-    const { addOnsTotal, selectedAddOns } = addOnsConfig.reduce<{
-        addOnsTotal: number;
-        selectedAddOns: SelectedAddOn[];
-    }>(
-        (acc, addOn) => {
-            if (formData.addOns[addOn.id as keyof typeof formData.addOns]) {
-                const price = isYearly ? addOn.yearlyPrice : addOn.monthlyPrice;
-                acc.addOnsTotal += price;
-                acc.selectedAddOns.push({
-                    label: addOn.label,
-                    price,
-                    billingPeriod,
-                });
-            }
-            return acc;
-        },
-        { addOnsTotal: 0, selectedAddOns: [] }
-    );
+        label: string
+        price: number
+        billingPeriod: string
+    }
+    const { addOnsTotal, selectedAddOns } =
+        addOnsConfig.reduce<{
+            addOnsTotal: number
+            selectedAddOns: SelectedAddOn[]
+        }>(
+            (acc, addOn) => {
+                if (
+                    formData.addOns[
+                        addOn.id as keyof typeof formData.addOns
+                    ]
+                ) {
+                    const price = isYearly
+                        ? addOn.yearlyPrice
+                        : addOn.monthlyPrice
+                    acc.addOnsTotal += price
+                    acc.selectedAddOns.push({
+                        label: addOn.label,
+                        price,
+                        billingPeriod
+                    })
+                }
+                return acc
+            },
+            { addOnsTotal: 0, selectedAddOns: [] }
+        )
 
-    const grandTotal = planPrice + addOnsTotal;
+    const grandTotal = planPrice + addOnsTotal
 
     const handleConfirm = () => {
-        console.log("Final submission:", formData);
-        nextStep();
-    };
+        console.log('Final submission:', formData)
+        nextStep()
+    }
 
     return (
-        <div className="flex flex-col gap-4 h-full justify-between sm:px-10 lg:px-[4.7rem]">
+        <div className='flex h-full flex-col justify-between gap-4 sm:px-10 lg:px-[4.7rem]'>
             <Hero
-                title="Finishing up"
-                description="Double-check everything looks OK before confirming."
+                title='Finishing up'
+                description='Double-check everything looks OK before confirming.'
             />
 
-            <div className="bg-gray-50 rounded-lg p-6">
-                <div className="flex justify-between items-center border-b border-gray-300 pb-4">
+            <div className='rounded-lg bg-gray-50 p-6'>
+                <div className='flex items-center justify-between border-b border-gray-300 pb-4'>
                     <div>
-                        <h3 className="font-medium capitalize text-input">
-                            {selectedPlan?.label} ({formData.plan.billing})
+                        <h3 className='text-input font-medium capitalize'>
+                            {selectedPlan?.label} (
+                            {formData.plan.billing})
                         </h3>
                         <button
-                            type="button"
+                            type='button'
                             onClick={() => prevStep()}
-                            className="text-gray-500 underline text-sm hover:text-foreground transition-colors"
+                            className='hover:text-foreground text-sm text-gray-500 underline transition-colors'
                         >
                             Change
                         </button>
                     </div>
-                    <div className="font-semibold text-input">
+                    <div className='text-input font-semibold'>
                         ${planPrice}/{billingPeriod}
                     </div>
                 </div>
 
                 {/* Add-ons Summary */}
                 {selectedAddOns.length > 0 && (
-                    <div className="space-y-3 pt-4">
-                        {selectedAddOns.map((addOn) => (
+                    <div className='space-y-3 pt-4'>
+                        {selectedAddOns.map(addOn => (
                             <div
                                 key={addOn.label}
-                                className="flex justify-between"
+                                className='flex justify-between'
                             >
-                                <span className="text-gray-500">
+                                <span className='text-gray-500'>
                                     {addOn.label}
                                 </span>
-                                <span className="text-input font-normal">
-                                    +${addOn.price}/{addOn.billingPeriod}
+                                <span className='text-input font-normal'>
+                                    +${addOn.price}/
+                                    {addOn.billingPeriod}
                                 </span>
                             </div>
                         ))}
@@ -120,32 +130,33 @@ export function FinishingUp() {
             </div>
 
             {/* Grand Total */}
-            <div className="flex justify-between items-center px-6">
-                <span className="text-gray-500">
-                    Total (per {isYearly ? "year" : "month"})
+            <div className='flex items-center justify-between px-6'>
+                <span className='text-gray-500'>
+                    Total (per {isYearly ? 'year' : 'month'}
+                    )
                 </span>
-                <span className="text-xl font-semibold text-accent-foreground">
+                <span className='text-accent-foreground text-xl font-semibold'>
                     ${grandTotal}/{billingPeriod}
                 </span>
             </div>
 
-            <div className="mt-6 fixed sm:relative bottom-0 left-0 right-0 bg-white p-4 flex justify-between w-full">
+            <div className='fixed right-0 bottom-0 left-0 mt-6 flex w-full justify-between bg-white p-4 sm:relative'>
                 <Button
-                    variant="ghost"
+                    variant='ghost'
                     onClick={prevStep}
-                    type="button"
-                    className="text-accent cursor-pointer"
+                    type='button'
+                    className='text-accent cursor-pointer'
                 >
                     Go Back
                 </Button>
                 <Button
                     onClick={handleConfirm}
-                    variant="secondary"
-                    className="bg-accent-foreground hover:bg-muted text-white"
+                    variant='secondary'
+                    className='bg-accent-foreground hover:bg-muted text-white'
                 >
                     Confirm
                 </Button>
             </div>
         </div>
-    );
+    )
 }

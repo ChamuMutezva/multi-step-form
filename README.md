@@ -58,4 +58,4 @@ MIT
 
 ---
 
-*Built with NextJs.*
+_Built with NextJs._
