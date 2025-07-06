@@ -101,6 +101,9 @@
 .next-btn {
     @apply bg-secondary-foreground text-white;
 }
+.container-steps {
+    @apply flex h-full flex-col justify-items-stretch gap-4 sm:px-10 lg:px-[4.7rem];
+}
 
 @theme inline {
     --color-background: var(--background);

@@ -71,7 +71,7 @@ export function PaymentsPlan() {
     }
 
     return (
-        <div className='flex h-full flex-col justify-items-stretch gap-4 sm:px-10 lg:px-[4.7rem]'>
+        <div className='container-steps'>
             <Hero
                 title={'Select your plan'}
                 description={
@@ -122,7 +122,8 @@ export function PaymentsPlan() {
                                                             htmlFor={
                                                                 plan.value
                                                             }
-                                                            className={`flex cursor-pointer items-start justify-center gap-4 rounded-lg border p-4 transition-all lg:min-h-[10rem] lg:flex-col ${
+                                                            className={`flex cursor-pointer items-start justify-center gap-4
+                                                                 rounded-lg border p-4 transition-all lg:min-h-[10rem] lg:flex-col ${
                                                                 field.value ===
                                                                 plan.value
                                                                     ? 'border-[hsl(var(--purple-600))] bg-[hsl(var(--blue-50))]'

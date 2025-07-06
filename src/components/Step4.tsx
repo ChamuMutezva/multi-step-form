@@ -82,7 +82,7 @@ export function FinishingUp() {
     }
 
     return (
-        <div className='flex h-full flex-col justify-between gap-4 sm:px-10 lg:px-[4.7rem]'>
+        <div className='container-steps'>
             <Hero
                 title='Finishing up'
                 description='Double-check everything looks OK before confirming.'

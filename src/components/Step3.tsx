@@ -97,7 +97,7 @@ export function AddsOn() {
     }
 
     return (
-        <div className='flex h-full flex-col justify-items-stretch gap-4 sm:px-10 lg:px-[4.7rem]'>
+        <div className='container-steps'>
             <Hero
                 title={'Pick add-ons'}
                 description={
@@ -145,7 +145,7 @@ export function AddsOn() {
                                                 />
                                                 <div className='flex-1'>
                                                     <FormLabel
-                                                        htmlFor={`${addOn.id}`}
+                                                        htmlFor={addOn.id}
                                                         className='text-secondary-foreground font-medium'
                                                     >
                                                         {
