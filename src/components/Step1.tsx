@@ -102,14 +102,14 @@ export function PersonalInformation() {
                                 name='name'
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className='text-xs leading-[1.2] font-medium text-[hsl(var(--blue-950))]'>
+                                        <FormLabel className='input-label'>
                                             Name
                                         </FormLabel>
                                         <FormControl>
                                             <Input
                                                 placeholder='Chamu'
                                                 {...field}
-                                                className='text-input cursor-pointer py-6 text-sm leading-[1.5] sm:text-base'
+                                                className='input-text'
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -121,13 +121,13 @@ export function PersonalInformation() {
                                 name='email'
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className='text-xs leading-[1.2] font-medium text-[hsl(var(--blue-950))]'>
+                                        <FormLabel className='input-label'>
                                             Email Address
                                         </FormLabel>
                                         <FormControl>
                                             <Input
                                                 placeholder='ckmutezva@gmail.com'
-                                                className='text-input cursor-pointer py-6 text-sm leading-[1.5] sm:text-base'
+                                                className='input-text'
                                                 {...field}
                                             />
                                         </FormControl>
@@ -140,14 +140,14 @@ export function PersonalInformation() {
                                 name='phone'
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className='text-xs leading-[1.2] font-medium text-[hsl(var(--blue-950))]'>
+                                        <FormLabel className='input-label'>
                                             Phone Number
                                         </FormLabel>
                                         <FormControl>
                                             <Input
                                                 placeholder='+27 832678210'
                                                 {...field}
-                                                className='text-input cursor-pointer py-6 text-sm leading-[1.5] sm:text-base'
+                                                className='input-text'
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -159,7 +159,7 @@ export function PersonalInformation() {
                             <Button
                                 type='submit'
                                 variant='secondary'
-                                className='bg-secondary cursor-pointer text-[var(--primary)]'
+                                className='next-btn'
                             >
                                 Next Step
                             </Button>

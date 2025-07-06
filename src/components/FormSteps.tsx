@@ -20,10 +20,10 @@ export default function FormSteps() {
                     className='flex items-center justify-items-start gap-4 sm:w-full'
                 >
                     <div
-                        className={`flex h-8 w-8 items-center justify-center rounded-full border-1 border-white text-sm font-bold ${
+                        className={`flex h-8 w-8 items-center justify-center rounded-full border-1 border-inherit text-sm font-bold ${
                             currentStep === step.number
-                                ? 'bg-primary-foreground text-input'
-                                : 'bg-transparent text-white'
+                                ? 'bg-primary-foreground border-primary-foreground text-input'
+                                : 'border-white bg-transparent text-white'
                         }`}
                     >
                         {step.number}

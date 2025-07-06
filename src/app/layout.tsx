@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Ubuntu } from 'next/font/google'
 import './globals.css'
 import { FormProvider } from '@/context/Formcontext'
+import { Toaster } from 'sonner'
 
 export const metadata: Metadata = {
     title: 'Multi Step Form',
@@ -31,6 +32,7 @@ export default function RootLayout({
                 className={`${ubuntu.variable} grid place-items-center antialiased`}
             >
                 <FormProvider>{children}</FormProvider>
+                 <Toaster position="top-center" richColors />
             </body>
         </html>
     )

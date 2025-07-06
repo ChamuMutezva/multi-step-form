@@ -214,7 +214,7 @@ export function PaymentsPlan() {
                             />
                         </div>
 
-                        <div className='fixed right-0 bottom-0 left-0 mt-6 flex w-full justify-between bg-white p-4 sm:relative'>
+                        <div className='container-btns'>
                             <Button
                                 variant='ghost'
                                 onClick={prevStep}
@@ -225,7 +225,7 @@ export function PaymentsPlan() {
                             <Button
                                 type='submit'
                                 variant='secondary'
-                                className='cursor-pointer text-white'
+                                className='next-btn'
                             >
                                 Next Step
                             </Button>

@@ -27,7 +27,7 @@ function StepWrapper() {
     }
 
     return (
-        <div className='z-20 h-auto w-full rounded bg-[var(--primary)] px-[var(--spacing-300)] py-[var(--spacing-400)] sm:px-0 sm:pt-8 sm:pb-0'>
+        <div className='z-20 h-auto w-full rounded-[var(--radius)] bg-[var(--primary)] px-[var(--spacing-300)] py-[var(--spacing-400)] sm:px-0 sm:pt-8 sm:pb-0'>
             {renderStep()}
         </div>
     )

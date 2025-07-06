@@ -160,7 +160,22 @@ export function FormProvider({
         setCurrentStep(prev => Math.min(prev + 1, 5))
     const prevStep = () =>
         setCurrentStep(prev => Math.max(prev - 1, 1))
-    const reset = () => setCurrentStep(1)
+    const reset = () => {
+        setCurrentStep(1)
+        formMethods.reset({
+            personalInfo: {
+                name: '',
+                email: '',
+                phone: ''
+            },
+            plan: { type: 'arcade', billing: 'monthly' },
+            addOns: {
+                onlineService: false,
+                largerStorage: false,
+                customizableProfile: false
+            }
+        })
+    }
 
     const contextValue = useMemo(
         () => ({

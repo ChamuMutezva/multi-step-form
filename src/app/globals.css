@@ -88,6 +88,20 @@
     margin-bottom: 1rem;
 }
 
+.input-label {
+    @apply text-secondary-foreground text-xs leading-[1.2] font-medium;
+}
+
+.input-text {
+    @apply text-input cursor-pointer py-6 text-sm leading-[1.5] sm:text-base;
+}
+.container-btns {
+    @apply fixed right-0 bottom-0 left-0 mt-6 flex w-full justify-between bg-white p-4 sm:relative;
+}
+.next-btn {
+    @apply bg-secondary-foreground text-white;
+}
+
 @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);

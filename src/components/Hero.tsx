@@ -8,10 +8,10 @@ interface HeroProps {
 function Hero({ title, description }: Readonly<HeroProps>) {
     return (
         <div className='flex flex-col gap-4'>
-            <h2 className='text-2xl leading-[1.2] font-bold text-[hsl(var(--blue-950))] lg:text-[2rem]'>
+            <h2 className='text-secondary-foreground text-2xl leading-[1.2] font-bold lg:text-[2rem]'>
                 {title}
             </h2>
-            <p className='text-base leading-[1.5] text-[hsl(var(--grey))]'>
+            <p className='text-accent text-base leading-[1.5]'>
                 {description}
             </p>
         </div>

@@ -125,23 +125,29 @@ export function AddsOn() {
                                     <FormItem>
                                         <FormControl>
                                             <div
-                                                className={`flex items-center gap-4 rounded-lg border p-4 transition-colors ${
-                                                    field.value
-                                                        ? 'border-accent-foreground bg-card'
-                                                        : 'border-gray-300 hover:border-purple-300'
-                                                } `}
+                                                className={`relative flex items-center gap-4 p-4`}
                                             >
                                                 <Checkbox
+                                                    id={
+                                                        addOn.id
+                                                    }
                                                     checked={
                                                         field.value
                                                     }
                                                     onCheckedChange={
                                                         field.onChange
                                                     }
-                                                    className='h-5 w-5 rounded'
+                                                    className='hover:before:border-foreground h-5 w-5 cursor-pointer 
+                                                    rounded before:absolute before:top-0 before:left-0 before:z-50
+                                                     before:h-full before:w-full before:rounded before:border
+                                                      before:border-gray-300 before:transition-colors before:content-[""]
+                                                       '
                                                 />
                                                 <div className='flex-1'>
-                                                    <FormLabel className='text-secondary-foreground font-medium'>
+                                                    <FormLabel
+                                                        htmlFor={`${addOn.id}`}
+                                                        className='text-secondary-foreground font-medium'
+                                                    >
                                                         {
                                                             addOn.label
                                                         }
@@ -171,7 +177,7 @@ export function AddsOn() {
                             />
                         ))}
 
-                        <div className='fixed right-0 bottom-0 left-0 mt-6 flex w-full justify-between bg-white p-4 sm:relative'>
+                        <div className='container-btns'>
                             <Button
                                 variant='ghost'
                                 onClick={prevStep}
@@ -183,7 +189,7 @@ export function AddsOn() {
                             <Button
                                 type='submit'
                                 variant='secondary'
-                                className='text-white'
+                                className='next-btn'
                             >
                                 Next Step
                             </Button>
