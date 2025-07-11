@@ -12,9 +12,7 @@ jobs:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
-        node-version: lts/*    
-    - name: Install Playwright Browsers
-      run: pnpm exec playwright install --with-deps
+        node-version: lts/*       
     - name: Run Playwright tests
       run: pnpm exec playwright test
     - name: Start development server
