@@ -91,6 +91,7 @@ export function PersonalInformation() {
             <div className='flex flex-1 flex-col'>
                 <Form {...form}>
                     <form
+                        id='step1-form'
                         onSubmit={form.handleSubmit(
                             onSubmit
                         )}

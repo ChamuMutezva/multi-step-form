@@ -110,6 +110,7 @@ export function AddsOn() {
                         onSubmit={form.handleSubmit(
                             onSubmit
                         )}
+                        id='step3-form'
                         className='flex h-full w-full flex-col justify-between space-y-6'
                     >
                         {addOns.map(addOn => (

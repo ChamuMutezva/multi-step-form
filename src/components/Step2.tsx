@@ -84,6 +84,7 @@ export function PaymentsPlan() {
                         onSubmit={form.handleSubmit(
                             onSubmit
                         )}
+                        id='step2-form'
                         className='flex h-full w-full flex-col justify-between space-y-6'
                     >
                         <FormField
