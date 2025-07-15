@@ -579,7 +579,7 @@ test.describe('Step 3 Navigation Tests', () => {
         await page.getByRole('button', { name: /confirm/i }).click()
 
         // Verify Thank You page is shown
-        await expect(page.getByRole('heading', { name: /thank you/i })).toBeVisible()
-        await expect(page.getByText(/thank you for your subscription/i)).toBeVisible()
+        await expect(page.getByRole('heading', { name: /Thank You!/i })).toBeVisible()
+        await expect(page.getByText(/Thanks for confirming your subscription!/i)).toBeVisible()
     })
 })
