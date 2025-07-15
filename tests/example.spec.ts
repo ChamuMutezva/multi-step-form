@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test'
-import { describe } from 'node:test'
 
 test.beforeEach(async ({ page }) => {
     // Navigate to the app before each test
@@ -419,11 +418,11 @@ test.describe('Step 2 - Billing Cycle Switch Tests', () => {
 })
 
 test.describe('Step 3 Navigation Tests', () => {
-    test('should proceed from Step 2 to Step 3 on valid selection', async ({
+    test('should proceed from Step 2 to Step 3 on valid selection and then Step 4', async ({
         page
     }) => {
         // Fill step 1 and proceed to step 2
-        await page.goto('http://localhost:3000/')
+
         await page.getByLabel('Name').fill('Jane Doe')
         await page
             .getByLabel('Email Address')
@@ -487,6 +486,100 @@ test.describe('Step 3 Navigation Tests', () => {
 
         // Add verification for successful submission if needed
         // For example, check if navigated to next step or toast appears
-        // await expect(page.getByText('Add-ons selection saved')).toBeVisible();
+        await expect(
+            page.getByText('Finishing up')
+        ).toBeVisible()
+    })
+
+    test('should return to Step 3 when clicking Change on Step 4', async ({
+        page
+    }) => {
+        // Fill step 1 and proceed to step 2
+
+        await page.getByLabel('Name').fill('Jane Doe')
+        await page
+            .getByLabel('Email Address')
+            .fill('jane@example.com')
+        await page
+            .getByLabel('Phone Number')
+            .fill('+27831234567')
+        await page
+            .getByRole('button', { name: 'Next Step' })
+            .click()
+        await page.waitForSelector('#step2-form')
+
+        // Select a plan and proceed to step 3
+        await page
+            .getByRole('radio', { name: 'Arcade' })
+            .check()
+        const billingSwitch = page.getByRole('switch')
+        if (await billingSwitch.isChecked()) {
+            await billingSwitch.click()
+        }
+        await page
+            .getByRole('button', { name: 'Next Step' })
+            .click()
+        await page.waitForSelector('#step3-form')
+
+        // Select add-ons and proceed to step 4
+        const checkboxes = await page
+            .getByRole('checkbox')
+            .all()
+        await checkboxes[0].check()
+        await checkboxes[2].check()
+        await page
+            .getByRole('button', { name: 'Next Step' })
+            .click()
+
+         await expect(
+            page.getByText('Finishing up')
+        ).toBeVisible()
+
+        // On step 4, click the Change button to return to step 3
+        await page
+            .getByRole('button', { name: /change/i })
+            .click()
+
+        // Verify we are back on step 3
+        await expect(
+            page.getByRole('heading', {
+                name: /Pick add-ons/i
+            })
+        ).toBeVisible()
+        await expect(
+            page.locator('#step3-form')
+        ).toBeVisible()
+    })
+
+    test('should proceed to Thank You page after confirming on Step 4', async ({ page }) => {
+        // Fill step 1 and proceed to step 2
+        await page.getByLabel('Name').fill('Jane Doe')
+        await page.getByLabel('Email Address').fill('jane@example.com')
+        await page.getByLabel('Phone Number').fill('+27831234567')
+        await page.getByRole('button', { name: 'Next Step' }).click()
+        await page.waitForSelector('#step2-form')
+
+        // Select a plan and proceed to step 3
+        await page.getByRole('radio', { name: 'Pro' }).check()
+        const billingSwitch = page.getByRole('switch')
+        if (await billingSwitch.isChecked()) {
+            await billingSwitch.click()
+        }
+        await page.getByRole('button', { name: 'Next Step' }).click()
+        await page.waitForSelector('#step3-form')
+
+        // Select add-ons and proceed to step 4
+        const checkboxes = await page.getByRole('checkbox').all()
+        await checkboxes[0].check()
+        await checkboxes[2].check()
+        await page.getByRole('button', { name: 'Next Step' }).click()
+
+        // On step 4, click the Confirm button
+        await expect(page.getByText('Finishing up')).toBeVisible()
+        await page.getByRole('button', { name: /confirm/i }).click()
+
+        // Verify Thank You page is shown
+        await expect(page.getByRole('heading', { name: /thank you/i })).toBeVisible()
+        await expect(page.getByText(/thank you for your subscription/i)).toBeVisible()
     })
 })
