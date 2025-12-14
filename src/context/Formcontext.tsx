@@ -126,6 +126,7 @@ type FormContextType = {
     >
     nextStep: () => void
     prevStep: () => void
+    twoStepsBack: () => void
     reset: () => void
     formMethods: ReturnType<typeof useForm<FormData>>
 }
@@ -160,6 +161,8 @@ export function FormProvider({
         setCurrentStep(prev => Math.min(prev + 1, 5))
     const prevStep = () =>
         setCurrentStep(prev => Math.max(prev - 1, 1))
+    const twoStepsBack = () =>
+        setCurrentStep(prev => Math.max(prev - 2, 1))
     const reset = () => {
         setCurrentStep(1)
         formMethods.reset({
@@ -183,6 +186,7 @@ export function FormProvider({
             setCurrentStep,
             nextStep,
             prevStep,
+            twoStepsBack,
             reset,
             formMethods // Add this to context
         }),

@@ -6,7 +6,7 @@ import { plans } from '@/components/plans'
 import Hero from './Hero'
 
 export function FinishingUp() {
-    const { prevStep, nextStep, formMethods } =
+    const { prevStep, nextStep, twoStepsBack, formMethods } =
         useFormContext()
     const formData = formMethods.getValues()
     const isYearly = formData.plan.billing === 'yearly'
@@ -97,7 +97,7 @@ export function FinishingUp() {
                         </h3>
                         <button
                             type='button'
-                            onClick={() => prevStep()}
+                            onClick={() => twoStepsBack()}
                             className='hover:text-foreground text-sm text-gray-500 underline transition-colors'
                         >
                             Change
